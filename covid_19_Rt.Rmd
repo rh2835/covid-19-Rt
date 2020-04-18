@@ -1,0 +1,73 @@
+---
+title: "Esmating Covid-19 Rt"
+author: "Rui Hu(rh2835)"
+date: "4/17/2020"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+  This is a self-learning project from the following tutorial on datacamp: https://www.datacamp.com/community/tutorials/replicating-in-r-covid19
+
+# Bettencourt & Ribeiro   
+## Modeling arrivals    
+  Using Poisson Distribution to model the 'arrival' process of infections. Let $\lambda$ be the average rate of infections per day, then the probability of $k$ new cases on a day is given by $$P \left( k|\lambda \right) = \frac{\lambda^k e^{-\lambda}}{k!}$$
+
+## Code setup
+```{r}
+library(tidyverse)
+
+#Plot options, custom theme
+options(repr.plot.width = 12, repr.plot.height = 6)
+theme_custom <- function(base_size, ...){
+  ggplot2::theme_gray(base_size = base_size, ...) +
+  ggplot2::theme(
+    plot.title = element_text(face = 'bold'),
+    plot.subtitle = element_text(color = '#333333'),
+    panel.background = element_rect(fill = "#EBF4F7"),
+    strip.background = element_rect(fill = "#33AACC"),
+    legend.position = "bottom"
+  )
+}
+ggplot2::theme_set(theme_custom(base_size = 20))
+ggplot2::update_geom_defaults("line", list(size = 1.5))
+
+# Utility functions
+display_df <- function(x){
+  d <- as.character(
+    knitr::kable(x, format = 'html', table.attr = "class='dataframe'")
+  )
+  IRdisplay::display_html(d)
+}
+
+display_head <- function(x, n = 6){
+   display_df(head(x, n))
+}
+
+display_random <- function(x, n = 6){
+   display_df(dplyr::sample_n(x, n))
+}
+```
+
+
+## Poisson distribution
+
+
+
+```{r, echo=FALSE}
+plot(pressure)
+```
+
+
+
+
+
+
+
+## References:
+http://systrom.com/blog/the-metric-we-need-to-manage-covid-19/  
+https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0002185
